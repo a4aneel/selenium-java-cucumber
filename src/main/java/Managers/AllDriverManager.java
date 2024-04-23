@@ -11,6 +11,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.safari.SafariDriver;
 
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class AllDriverManager {
@@ -29,13 +30,13 @@ public class AllDriverManager {
             case CHROME:
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--headless", "--window-size=1644,868");
+//                chromeOptions.addArguments("--headless", "--window-size=1644,868");
                 webDriver = new ChromeDriver(chromeOptions);
                 break;
             case FIREFOX:
                 WebDriverManager.firefoxdriver().setup();
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
-                firefoxOptions.addArguments("--headless");
+//                firefoxOptions.addArguments("--headless");
                 webDriver = new FirefoxDriver(firefoxOptions);
                 break;
             case EDGE:
@@ -77,6 +78,6 @@ public class AllDriverManager {
 
     public void closeDriver() {
         webDriver.close();
-        webDriver.quit();
+//        webDriver.quit();
     }
 }

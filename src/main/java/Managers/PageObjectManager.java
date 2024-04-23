@@ -1,43 +1,30 @@
 package Managers;
 
-import PageObjects.HomePage;
-import PageObjects.LoginPage;
+import PageObjects.*;
 import org.openqa.selenium.WebDriver;
-import PageObjects.ProductDetailPage;
-import PageObjects.ProductListPage;
+
+import java.util.Set;
 
 public class PageObjectManager {
 
     private final WebDriver webDriver;
-    private HomePage homePage;
-    private LoginPage loginPage;
-    private ProductListPage productListPage;
-    private ProductDetailPage productDetailPage;
+    private LNHomePage lnHomePage;
 
     public PageObjectManager(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
 
-    //Short Hand If...Else
-    public HomePage getHomePage() {
-        return (homePage == null) ? homePage = new HomePage(webDriver) : homePage;
-    }
+    public void switchWindows() {
+        Set<String> windowHandles = webDriver.getWindowHandles();
 
-    //General If...Else
-    public LoginPage getLoginPage() {
-
-        if (loginPage == null) {
-            loginPage = new LoginPage(webDriver);
+        // Iterate through each window handle
+        for (String windowHandle : windowHandles) {
+            // Switch to the new window
+            webDriver.switchTo().window(windowHandle);
         }
-        return loginPage;
     }
 
-    public ProductListPage getProductListPage() {
-        return (productListPage == null) ? productListPage = new ProductListPage(webDriver) : productListPage;
-    }
-
-    public ProductDetailPage getProductDetailPage() {
-        if (productDetailPage == null) productDetailPage = new ProductDetailPage(webDriver);
-        return productDetailPage;
+    public LNHomePage getLnHomePage() {
+        return (lnHomePage == null) ? lnHomePage = new LNHomePage(webDriver) : lnHomePage;
     }
 }

@@ -6,13 +6,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.function.Function;
 
 public class Wait {
 
-    private static void until(WebDriver webDriver, Long timeOutInSeconds, Function<WebDriver, Boolean> waitCondition) {
-        WebDriverWait webDriverWait = new WebDriverWait(webDriver, timeOutInSeconds);
+    private static void until(WebDriver webDriver, Duration timeOutInSeconds, Function<WebDriver, Boolean> waitCondition) {
+        WebDriverWait webDriverWait = new WebDriverWait(webDriver, Duration.ofDays(timeOutInSeconds.toSeconds()));
         try {
             webDriverWait.until(waitCondition);
         } catch (Exception e) {
@@ -20,16 +21,16 @@ public class Wait {
         }
     }
 
-    public static void untilAjaxCallIsDone(WebDriver webDriver, Long timeOutInSeconds) {
-        until(webDriver, timeOutInSeconds, (function) -> {
+    public static void untilAjaxCallIsDone(WebDriver webDriver, Duration timeOutInSeconds) {
+        until(webDriver, Duration.ofDays(timeOutInSeconds.toSeconds()), (function) -> {
             Boolean isJqueryCallDone = (Boolean) ((JavascriptExecutor) webDriver).executeScript("return jQuery.active==0");
             if (!isJqueryCallDone) System.out.println("jQuery call is in progress");
             return isJqueryCallDone;
         });
     }
 
-    public static void untilPageReadyState(WebDriver webDriver, Long timeOutInSeconds) {
-        until(webDriver, timeOutInSeconds, (function) -> {
+    public static void untilPageReadyState(WebDriver webDriver, Duration timeOutInSeconds) {
+        until(webDriver, Duration.ofDays(timeOutInSeconds.toSeconds()), (function) -> {
             String isPageLoaded = String.valueOf(((JavascriptExecutor) webDriver).executeScript("return document.readyState"));
             if (isPageLoaded.equals("complete")) {
                 return true;
@@ -40,11 +41,11 @@ public class Wait {
         });
     }
 
-    public static void untilElementIsVisible(WebDriver webDriver, WebElement webElement, Long timeOutInSeconds) {
-        new WebDriverWait(webDriver, timeOutInSeconds).until(ExpectedConditions.visibilityOf(webElement));
+    public static void untilElementIsVisible(WebDriver webDriver, WebElement webElement, Duration timeOutInSeconds) {
+        new WebDriverWait(webDriver, Duration.ofDays(timeOutInSeconds.toSeconds())).until(ExpectedConditions.visibilityOf(webElement));
     }
 
-    public static void untilListElementIsVisible(WebDriver webDriver, List<WebElement> webElements, Long timeOutInSeconds) {
-        new WebDriverWait(webDriver, timeOutInSeconds).until(ExpectedConditions.visibilityOfAllElements(webElements));
+    public static void untilListElementIsVisible(WebDriver webDriver, List<WebElement> webElements, Duration timeOutInSeconds) {
+        new WebDriverWait(webDriver, Duration.ofDays(timeOutInSeconds.toSeconds())).until(ExpectedConditions.visibilityOfAllElements(webElements));
     }
 }
