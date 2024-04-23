@@ -29,7 +29,7 @@ $ mvn clean install
 ```
 * If you want to run the specific test, use the cucumber tags like this
 ```shell
-$ mvn clean install -Dcucumber.filter.tags="@REPLACE_WITH_ANY_TAGS_THAT_YOU_WANT"
+$ mvn clean install -Dcucumber.filter.tags="@lexisnexis"
 ```
 
 ## Test Results
