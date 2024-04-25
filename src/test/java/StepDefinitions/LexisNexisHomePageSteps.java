@@ -34,4 +34,8 @@ public class LexisNexisHomePageSteps {
         testContext.scenarioContext.setContext(Context.EXPECTED_DATA, jobName);
     }
 
+    @When("I am presented with correct results")
+    public void validateSearchResults(){
+        lnhomePage.validateResults();
     }
+}

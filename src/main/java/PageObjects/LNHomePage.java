@@ -1,11 +1,14 @@
 package PageObjects;
 
 import Utilities.TestContext;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+import org.testng.Assert;
+
 
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
@@ -53,6 +56,20 @@ public class LNHomePage {
         typeKeyword.click();
         typeKeyword.sendKeys(jobName);
     }
+
+    public void validateResults(){
+        try {
+            Thread.sleep(3000); // Wait for 3 seconds (adjust this as needed)
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // Check if there are any search results
+        boolean areSearchResultsPresent = webDriver.findElements(By.cssSelector(".search-result")).size() > 0;
+
+        // Assert that at least one search result is present
+        Assert.assertTrue(areSearchResultsPresent, "No search results found!");
+    }
+
 
     private WebDriver webDriver;
 }
